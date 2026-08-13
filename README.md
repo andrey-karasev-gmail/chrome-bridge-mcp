@@ -48,7 +48,7 @@ npm run build:extension
 2. Enable **Developer mode** (toggle in the top-right corner)
 3. Click **"Load unpacked"**
 4. Select the `extension/dist/` folder from this repository
-5. The extension icon should appear in your toolbar with an orange "..." badge
+5. The extension icon should appear in your toolbar with an orange badge
 
 ### 3. Start the MCP server
 
@@ -56,13 +56,20 @@ npm run build:extension
 npm start
 ```
 
-The server starts a WebSocket listener on `localhost:9229`. Once the extension connects, the badge turns green ("✅").
+The server starts a WebSocket listener on `localhost:9229`. Once the extension connects, the badge turns green.
+
+The badge is colour-only — it never shows text. Orange means starting up, green means
+connected, red means disconnected, and a brief blue flash marks message activity.
 
 You can customize the port via environment variable:
 
 ```bash
 CHROME_BRIDGE_PORT=8888 npx @web4w3/install chrome-bridge
 ```
+
+**The extension must be told the same port.** Click the extension icon → **Settings…**
+(or right-click the icon → **Options**), enter the port, and press **Save**. The
+extension reconnects immediately — no reload needed. It defaults to `9229`.
 
 ## Configuration for AI Clients
 
@@ -231,10 +238,10 @@ AI calls: browser_screenshot({ savePath: "/tmp/current-page.png" })
 
 | Problem | Solution |
 |---------|----------|
-| Extension badge shows "OFF" (red) | Make sure the MCP server is running (`npm start`) |
-| Extension badge shows "..." (orange) | Server is starting up — wait a few seconds |
+| Extension badge is red | Make sure the MCP server is running (`npm start`) |
+| Extension badge is orange | Server is starting up — wait a few seconds |
 | "Chrome extension not connected" error | Open `chrome://extensions`, ensure the extension is enabled and reload it |
-| Port conflict on 9229 | Change port: `CHROME_BRIDGE_PORT=8888 npm start` |
+| Port conflict on 9229 | Change it in both places: `CHROME_BRIDGE_PORT=8888 npm start`, then set 8888 in the extension's **Settings** page |
 | Cannot access page content | Some pages (chrome://, extension pages) block content scripts |
 
 ## Security

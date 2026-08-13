@@ -3,7 +3,7 @@
  * Connects to the MCP server's WebSocket and dispatches commands to content scripts.
  */
 
-const WS_URL = "ws://localhost:9229";
+const DEFAULT_PORT = 9229;
 const RECONNECT_DELAY = 3000;
 const KEEPALIVE_INTERVAL = 0.4; // minutes (24 seconds - under the 30s service worker timeout)
 const MESSAGE_ACTIVITY_BADGE_MS = 500;
@@ -41,12 +41,17 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
 // ─── WebSocket Connection ────────────────────────────────────
 
-function connect(): void {
+async function getWsUrl(): Promise<string> {
+  const { wsPort } = await chrome.storage.local.get({ wsPort: DEFAULT_PORT });
+  return `ws://localhost:${wsPort}`;
+}
+
+async function connect(): Promise<void> {
   if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
     return;
   }
 
-  ws = new WebSocket(WS_URL);
+  ws = new WebSocket(await getWsUrl());
 
   ws.onopen = () => {
     connected = true;
@@ -597,7 +602,23 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   return false;
 });
 
+// ─── Settings Changes (options page) ─────────────────────────
+
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area !== "local" || !("wsPort" in changes)) {
+    return;
+  }
+
+  console.log("[chrome-bridge] Port setting changed, reconnecting...");
+  // Closing triggers onclose, which schedules a reconnect using the new port.
+  if (ws) {
+    ws.close();
+  } else {
+    void connect();
+  }
+});
+
 // ─── Init ────────────────────────────────────────────────────
 
-connect();
+void connect();
 updateBadge(" ", "#FF9800");

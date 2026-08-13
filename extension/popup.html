@@ -34,6 +34,17 @@
       font-size: 11px;
       line-height: 1.4;
     }
+    .settings-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11px;
+      color: #2196F3;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .settings-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -43,9 +54,10 @@
     <span id="status-text">Checking...</span>
   </div>
   <div class="info">
-    Connects to the MCP server on <code>ws://localhost:9229</code>.<br>
+    Connects to the MCP server on <code id="ws-url">ws://localhost:9229</code>.<br>
     Start the server with <code>npm start</code> in the chrome-bridge directory.
   </div>
+  <a class="settings-link" id="settings-link">Settings…</a>
   <script src="scripts/popup.js"></script>
 </body>
 </html>

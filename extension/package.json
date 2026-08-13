@@ -4,7 +4,7 @@
   "private": true,
   "description": "Chrome extension for Chrome Bridge MCP",
   "scripts": {
-    "build": "tsc -p tsconfig.json && rm -rf dist/icons && cp -R icons dist/icons && cp manifest.json popup.html dist/"
+    "build": "tsc -p tsconfig.json && rm -rf dist/icons && cp -R icons dist/icons && cp manifest.json popup.html options.html dist/"
   },
   "devDependencies": {
     "@types/chrome": "^0.1.13"

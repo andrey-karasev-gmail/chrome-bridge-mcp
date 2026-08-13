@@ -21,7 +21,20 @@ async function checkStatus(): Promise<void> {
   }
 }
 
+async function showConfiguredPort(): Promise<void> {
+  const { wsPort } = await chrome.storage.local.get({ wsPort: 9229 });
+  const urlEl = document.getElementById("ws-url");
+  if (urlEl) {
+    urlEl.textContent = `ws://localhost:${wsPort}`;
+  }
+}
+
+document.getElementById("settings-link")?.addEventListener("click", () => {
+  chrome.runtime.openOptionsPage();
+});
+
 void checkStatus();
+void showConfiguredPort();
 setInterval(() => {
   void checkStatus();
 }, 2000);
