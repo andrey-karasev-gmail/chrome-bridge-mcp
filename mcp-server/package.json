@@ -1,10 +1,25 @@
 {
-  "name": "mcp-server",
+  "name": "@web4w3/chrome-bridge-mcp",
   "version": "1.0.0",
-  "description": "Chrome Bridge MCP server",
+  "description": "MCP server that bridges AI assistants to your real Chrome/Edge browser via a companion extension",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "chrome-bridge-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "extension-dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrey-karasev-gmail/chrome-bridge-mcp.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
