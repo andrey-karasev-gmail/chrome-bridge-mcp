@@ -1,6 +1,6 @@
 {
   "name": "@web4w3/chrome-bridge-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server that bridges AI assistants to your real Chrome/Edge browser via a companion extension",
   "type": "module",
   "main": "dist/index.js",
