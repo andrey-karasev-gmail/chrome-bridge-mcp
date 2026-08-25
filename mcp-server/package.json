@@ -17,6 +17,10 @@
     "type": "git",
     "url": "https://github.com/andrey-karasev-gmail/chrome-bridge-mcp.git"
   },
+  "homepage": "https://web4w3.com/projects/chrome-bridge",
+  "bugs": {
+    "url": "https://github.com/andrey-karasev-gmail/chrome-bridge-mcp/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
